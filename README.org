@@ -74,7 +74,7 @@ with input and output arguments.
    In order to minimize the size of the resulting trace (as well as maximize timing accuracy), by default saving arguments and return values
    of traced functions is disabled. The API for selecting what values to store and when is in flux.
    Currently, you can set a global default by installing appropriate function as the value of =*DEFAULT-ARG-CONVERTER*=, or specify a
-   per-symbol policy using the =*TRACING-ARG-CONVERTERS*= hash table. See [file:src/trace-event.lisp] for details. As an example, you can do:
+   per-symbol policy using the =*TRACING-ARG-CONVERTERS*= hash table. See [[file:src/trace-event.lisp][trace-event.lisp]] for details. As an example, you can do:
 
    #+BEGIN_SRC lisp
      (setf tracer::*default-arg-converter* tracer::+arg-converter-store-only-simple-objects-and-strings+)
@@ -90,8 +90,8 @@ with input and output arguments.
    The current interface is pretty crude and user-unfriendly, but it will be improved in the future.
 
 * Known issues
-  - =SAVE-REPORT= used with =:SKIP-ARGS T= may cause an error by default. That's because the API for deciding what parameters to collect
-    is in flux, and =:SKIP-ARGS= is a part of the old API. Don't use it for now.
+  =SAVE-REPORT= used with =:SKIP-ARGS T= may cause an error by default. That's because the API for deciding what parameters to collect
+  is in flux, and =:SKIP-ARGS= is a part of the old API. Don't use it for now.
 
 * Implementation notes
   =Tracer= works by abusing =TRACE= feature to time and record calls instead of printing them to =*TRACE-OUTPUT*=.
@@ -99,9 +99,9 @@ with input and output arguments.
   original implementations when done recording. Recording is protected by =UNWIND-PROTECT=, but if anything goes wrong,
   you can call =TRACER:STOP-TRACING= yourself just to be sure.
 
-  =Tracer= also currently binds directly to SBCL's interface to =[[http://man7.org/linux/man-pages/man2/gettimeofday.2.html][gettimeofday]]= to provide a microsecond-resolution clock.
+  =Tracer= also currently binds directly to SBCL's interface to [[http://man7.org/linux/man-pages/man2/gettimeofday.2.html][gettimeofday]] to provide a microsecond-resolution clock.
   This is a cludge that may or may not work on systems other than Linux (I think it should). This is an improvement over
-  the initial approach, which was to use =[[http://www.lispworks.com/documentation/HyperSpec/Body/f_get_in.htm][GET-INTERNAL-REAL-TIME]]=, hoping for millisecond resolution, and then to introduce
+  the initial approach, which was to use [[http://www.lispworks.com/documentation/HyperSpec/Body/f_get_in.htm][GET-INTERNAL-REAL-TIME]], hoping for millisecond resolution, and then to introduce
   jitter so that all traced samples are at least 1 microsecond long. The jittered maybe-millisecond-accurate clock is still
   available; to use it, do:
   #+BEGIN_SRC lisp
