@@ -67,7 +67,7 @@
       (format nil "[~{~F~^, ~}]" (coerce arg 'list))
       (call-next-method)))
 
-;;; FIXME: Something breaks if not collecting args, and :skip-args is T. Probably the getf in printing. -- Jacek Złydach, 2019-11-05
+;;; FIXME: Something breaks if not collecting args, and :skip-args is NIL. Probably the getf in printing. -- Jacek Złydach, 2019-11-05
 (defun trace-event->json (trace-event &key (skip-args nil))
   (flet ((sanitize-and-format-args-list (argslist)
            (if skip-args "\"skipped\""
@@ -122,7 +122,7 @@
        (return (alexandria:hash-table-keys uniques-ht))))
 
 ;;; FIXME: save with streams instead? -- Jacek Złydach, 2019-10-14
-(defun save-report (output-file-name &key (skip-args nil))
+(defun save-report (output-file-name &key (skip-args t))
   (with-open-file (stream output-file-name :direction :output :if-exists :supersede)
     ;; TODO: preamble -- Jacek Złydach, 2019-10-14
     (format stream "{~%\"traceEvents\" :  [~%")

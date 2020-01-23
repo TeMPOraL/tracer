@@ -80,6 +80,7 @@ with input and output arguments.
      (setf tracer::*default-arg-converter* tracer::+arg-converter-store-only-simple-objects-and-strings+)
      (tracer:with-tracing #.(interesting-traceables)
        (my-project:some-long-operation))
+     (tracer:save-report "report.json" :skip-args nil)
    #+END_SRC
 
    in order to remember numbers, characters, booleans, symbols and strings. The fastest and most dangerous of current arg converters
@@ -90,8 +91,8 @@ with input and output arguments.
    The current interface is pretty crude and user-unfriendly, but it will be improved in the future.
 
 * Known issues
-  =SAVE-REPORT= used with =:SKIP-ARGS T= may cause an error by default. That's because the API for deciding what parameters to collect
-  is in flux, and =:SKIP-ARGS= is a part of the old API. Don't use it for now.
+  =SAVE-REPORT= used with =:SKIP-ARGS NIL= may cause an error if =*DEFAULT-ARG-CONVERTER*= is left at its default value of
+  =+ARG-CONVERTER-IGNORE-ALL+=. That's because the API for deciding what parameters to collect is in flux, and =:SKIP-ARGS= is a part of the old API.
 
 * Implementation notes
   =Tracer= works by abusing =TRACE= feature to time and record calls instead of printing them to =*TRACE-OUTPUT*=.
