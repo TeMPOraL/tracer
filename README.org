@@ -9,6 +9,8 @@ A tracing profiler for SBCL, with output suitable for display in Chrome's/Chromi
 *NOTE*: in its current form, it's a pile of hacks altering the behavior of SBCL's implementation of Common Lisp's =TRACE= facility.
 Therefore it works *only* on SBCL - and I only tested it on SBCL 1.5.0 (AMD64, Linux). Help wanted in making it as portable as possible.
 
+UPDATE: There's also an [[http://jacek.zlydach.pl/blog/2020-02-04-introducing-tracer-a-tracing-profiler-for-common-lisp.html][associated blog post]] with some thoughts about tracing profilers in general, and this one in particular.
+
 =Tracer= is designed to be used in "drop-in" mode, i.e. no code in the profiled project needs to be modified to achieve its primary functionality.
 In the future, extended functionality may require adding some constructs to the profiled code.
 
